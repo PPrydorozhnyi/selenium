@@ -91,12 +91,14 @@ public class ListItemTest {
     public void removeItem() {
         listItem.removeItem(1);
 
-        assertEquals(1, listItem.getAllItems().size());
+        assertEquals(1, listItem.getAllListItems().size());
     }
 
     @Test
     public void doubleClick() {
-
+        final var textInput = listItem.doubleClickItem(1).getTextInput();
+        assertNotNull(textInput);
+        assertEquals(TEST_TEXT, textInput.getValue());
     }
 
 }
