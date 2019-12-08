@@ -19,6 +19,7 @@ import static junit.framework.TestCase.assertNotNull;
 public class ListItemTest {
 
     private static final String TEST_TEXT = "Test Text";
+    private static final String EDIT_NAME = " Edit";
     public static final int TIMES = 3;
     private static InputField inputField;
     private static ListItem listItem;
@@ -99,6 +100,13 @@ public class ListItemTest {
         final var textInput = listItem.doubleClickItem(1).getTextInput();
         assertNotNull(textInput);
         assertEquals(TEST_TEXT, textInput.getValue());
+    }
+
+    @Test
+    public void edit() {
+        listItem.doubleClickItem(0).editName(EDIT_NAME);
+        assertEquals(TEST_TEXT, listItem.getAllListItems().get(1).getText());
+        assertEquals(TEST_TEXT + EDIT_NAME, listItem.getAllListItems().get(0).getText());
     }
 
 }

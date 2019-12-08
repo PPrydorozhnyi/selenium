@@ -58,4 +58,11 @@ public class ListItem {
     public SelenideElement getTextInput() {
         return $(TEXT_INPUT);
     }
+
+    public ListItem editName(String newName) {
+        var itemName = getTextInput();
+        itemName.append(newName);
+        itemName.submit();
+        return this;
+    }
 }
