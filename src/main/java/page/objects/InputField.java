@@ -1,14 +1,12 @@
 package page.objects;
 
-import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.$;
 
 public class InputField {
 
     private static final String INPUT_FIELD = "input.new-todo";
 
-    private static final By ARROW_BUTTON = By.cssSelector("label[for='toggle-all']");
+    private static final String ARROW_BUTTON = "label[for='toggle-all']";
 
     public InputField typeToDo(String todo) {
         $(INPUT_FIELD).sendKeys(todo);
