@@ -1,35 +1,17 @@
 package selenide;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import page.objects.InputField;
 
 import static junit.framework.TestCase.assertEquals;
+import static selenide.TestConstants.TEST_TEXT;
 
-public class InputFieldTest {
+public class InputFieldTest extends TestEnv {
 
-    private static final String TEST_TEXT = "Test Text";
     private static InputField inputField;
 
-    @BeforeClass
-    public static void init() {
-        Configuration.timeout = 6000;
-        Configuration.browser = "chrome";
+    public InputFieldTest() {
         inputField = new InputField();
-    }
-
-    @Before
-    public void setUp() {
-        Selenide.open("http://todomvc.com/examples/angularjs/");
-    }
-
-    @After
-    public void close() {
-        Selenide.close();
     }
 
     @Test

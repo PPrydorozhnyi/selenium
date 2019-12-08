@@ -1,47 +1,30 @@
 package selenide;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
 import page.objects.InputField;
 import page.objects.ListItem;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static selenide.TestConstants.TEST_TEXT;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ListItemTest {
+public class ListItemTest extends TestEnv {
 
-    private static final String TEST_TEXT = "Test Text";
     private static final String EDIT_NAME = " Edit";
-    public static final int TIMES = 3;
-    private static InputField inputField;
-    private static ListItem listItem;
+    private static final int SIZE = 2;
+    private InputField inputField;
+    private ListItem listItem;
 
-    @BeforeClass
-    public static void init() {
-        Configuration.timeout = 6000;
-        Configuration.browser = "chrome";
+    public ListItemTest() {
         inputField = new InputField();
         listItem = new ListItem();
     }
 
-    @Before
     public void setUp() {
-        Selenide.open("http://todomvc.com/examples/angularjs/");
+        super.setUp();
         inputField.typeToDo(TEST_TEXT).submit();
         inputField.typeToDo(TEST_TEXT).submit();
-    }
-
-    @After
-    public void close() {
-        Selenide.close();
     }
 
     @Test
@@ -62,23 +45,17 @@ public class ListItemTest {
 
     @Test
     public void select() {
-        for (int i = 0; i < TIMES; ++i) {
-            inputField.typeToDo(TEST_TEXT).submit();
-        }
 
         inputField.clickArrow();
 
         final ElementsCollection allCompletedItems = listItem.getAllCompletedItems();
 
         assertNotNull(allCompletedItems);
-        assertEquals(TIMES, allCompletedItems.size());
+        assertEquals(SIZE, allCompletedItems.size());
     }
 
     @Test
     public void deselect() {
-        for (int i = 0; i < TIMES; ++i) {
-            inputField.typeToDo(TEST_TEXT).submit();
-        }
 
         inputField.clickArrow().clickArrow();
 

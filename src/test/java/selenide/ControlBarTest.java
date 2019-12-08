@@ -1,41 +1,30 @@
 package selenide;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
 import page.objects.ControlBar;
 import page.objects.InputField;
 import page.objects.ListItem;
 
 import static junit.framework.TestCase.assertEquals;
+import static selenide.TestConstants.TEST_TEXT;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ControlBarTest {
+public class ControlBarTest extends TestEnv {
 
-    public static final int SIZE = 5;
-    public static final int SIZE_OF_CHECKED = 2;
-    private static final String TEST_TEXT = "Test Text";
-    private static InputField inputField;
-    private static ListItem listItem;
-    private static ControlBar controlBar;
+    private static final int SIZE = 5;
+    private static final int SIZE_OF_CHECKED = 2;
+    private InputField inputField;
+    private ListItem listItem;
+    private ControlBar controlBar;
 
-    @BeforeClass
-    public static void init() {
-        Configuration.timeout = 6000;
-        Configuration.browser = "chrome";
+    public ControlBarTest() {
         inputField = new InputField();
         listItem = new ListItem();
         controlBar = new ControlBar();
     }
 
-    @Before
+    @Override
     public void setUp() {
-        Selenide.open("http://todomvc.com/examples/angularjs/");
+        super.setUp();
         for (int i = 0; i < SIZE; ++i) {
             inputField.typeToDo(TEST_TEXT).submit();
         }
@@ -43,11 +32,6 @@ public class ControlBarTest {
         for (int i = 0; i < SIZE_OF_CHECKED; ++i) {
             listItem.checkItem(i);
         }
-    }
-
-    @After
-    public void close() {
-        Selenide.close();
     }
 
     @Test
