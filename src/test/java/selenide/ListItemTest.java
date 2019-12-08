@@ -87,4 +87,16 @@ public class ListItemTest {
         assertEquals(0, allCompletedItems.size());
     }
 
+    @Test
+    public void removeItem() {
+        listItem.removeItem(1);
+
+        assertEquals(1, listItem.getAllItems().size());
+    }
+
+    @Test
+    public void doubleClick() {
+
+    }
+
 }
